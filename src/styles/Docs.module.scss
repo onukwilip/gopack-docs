@@ -11,5 +11,8 @@
     }
     .right {
         flex: 1;
+        max-height: 89vh;
+        padding: 1rem 3rem;
+        overflow-y: auto;
     }
 }

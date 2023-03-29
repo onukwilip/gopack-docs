@@ -6,3 +6,7 @@ export class NavClass {
     public subMenu?: NavClass[]
   ) {}
 }
+
+export class DocsClass {
+  constructor(public title: string, public body?: string) {}
+}

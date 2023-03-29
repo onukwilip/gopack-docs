@@ -13,10 +13,24 @@ body {
 
 * {
   font-family: "Gumela";
+  box-sizing: border-box;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  padding: 2px;
+  border-radius: 4px;
+  background: lighten(lightgray, 10);
+}
+pre {
+  & > div {
+    border-radius: 10px;
+  }
+  code {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
 }
 
 em {

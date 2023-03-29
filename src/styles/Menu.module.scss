@@ -3,9 +3,11 @@
 $menu-list-padding: 1.5rem;
 
 .menu {
+    transition: 100ms;
     @include flex(center, start, 1rem, column);
     background-color: rgba($pry-color-dark, 0.02);
     padding: 1rem 0;
+    width: 60px;
     min-width: 60px;
     overflow-y: auto;
     height: 100%;
@@ -43,7 +45,7 @@ $menu-list-padding: 1.5rem;
     }
     &:hover {
         @include flex(start, start, 0, column);
-        width: 100%;
+        width: 300px;
         min-width: 300px;
         padding: 1rem 2rem;
         &::-webkit-scrollbar {
