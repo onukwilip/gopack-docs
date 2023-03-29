@@ -1,0 +1,61 @@
+@import "./config";
+
+.header {
+    max-width: 100vw;
+    @include flex(flex-start, space-between, 2rem);
+    padding: 1rem 2rem;
+    box-shadow: $box-shadow-light;
+    position: sticky;
+    top: 0;
+    left: 0;
+    .logo-container {
+        flex: 1;
+        @include flex(center, start, 1rem);
+        img {
+            max-width: 50px;
+        }
+        h1 {
+            font-family: "Gumela";
+        }
+    }
+    .other {
+        flex: 1;
+        @include flex(center, space-between, 2rem);
+        .search-container {
+            input {
+                border-radius: 50px;
+                padding: 1rem 2rem;
+                width: 300px;
+            }
+        }
+        nav {
+            @include flex(center, center, 2rem);
+            a {
+                color: $pry-color-light;
+                text-shadow: $box-shadow-light;
+                font-size: 16px;
+            }
+        }
+        .social {
+            @include flex(center, center, 1.5rem);
+            a {
+                transition: 200ms;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background: lighten($pry-color-light, 20);
+                @include flex(center, center, 0);
+                i {
+                    transition: 1s;
+                    color: $pry-color-dark;
+                    font-size: 18px;
+                    @include flex(center, center, 0);
+                }
+
+                &:hover {
+                    transform: scale(1.3);
+                }
+            }
+        }
+    }
+}

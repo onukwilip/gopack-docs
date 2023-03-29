@@ -1,0 +1,15 @@
+@import "./config";
+
+.docs {
+    @include flex(stretch, start, 0);
+    max-height: 90vh;
+    overflow-y: hidden;
+    transition: 1s;
+    .left {
+        transition: 1s;
+        box-shadow: $box-shadow-light;
+    }
+    .right {
+        flex: 1;
+    }
+}

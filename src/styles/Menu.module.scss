@@ -1,0 +1,133 @@
+@import "./config";
+
+$menu-list-padding: 1.5rem;
+
+.menu {
+    @include flex(center, start, 1rem, column);
+    background-color: rgba($pry-color-dark, 0.02);
+    padding: 1rem 0;
+    min-width: 60px;
+    overflow-y: auto;
+    height: 100%;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    em {
+        display: none;
+    }
+    i.caret {
+        display: none;
+    }
+    i {
+        @include flex(center, center, 0);
+    }
+    .each-menu {
+        .single,
+        .sub-menu-parent {
+            i:first-of-type {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: lighten($pry-color-light, 18);
+                color: $pry-color-dark;
+                @include flex(center, center, 0);
+            }
+        }
+        .sub-menu .single i:first-of-type {
+            width: 100%;
+            height: 0;
+            @include flex(center, center, 0);
+            background-color: transparent;
+            padding: 0.3rem 0;
+        }
+    }
+    &:hover {
+        @include flex(start, start, 0, column);
+        width: 100%;
+        min-width: 300px;
+        padding: 1rem 2rem;
+        &::-webkit-scrollbar {
+            display: block;
+            width: 5px !important;
+        }
+        .menu-item {
+            @include flex(center, space-between, 1rem, row);
+            padding: 0.5rem 0;
+        }
+        em {
+            display: block;
+        }
+        i.caret {
+            display: block;
+        }
+        .each-menu {
+            transition: 200ms;
+            @include flex(start, space-between, 1rem, column);
+            width: 100%;
+            text-transform: capitalize;
+            & > div {
+                &.sub-menu {
+                    @include flex(start, center, 0, column);
+                    margin-left: 15px;
+                    .single {
+                        transition: 200ms;
+                        i {
+                            background-color: transparent;
+                            width: 0;
+                            height: 0;
+                            border-radius: 0;
+                            font-size: 10px;
+                        }
+                        &:hover {
+                            background: lighten($pry-color-light, 25);
+                            padding-left: 1rem;
+                            padding-right: 1rem;
+                            border-radius: 20px;
+                            i:first-child {
+                                color: $pry-color-dark;
+                            }
+                        }
+                    }
+                    border-left: 3px dotted $pry-color-light;
+                }
+                &.sub-menu-parent {
+                    @extend .menu-item;
+                    em {
+                        font-size: 15px;
+                    }
+                    i:first-of-type {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background-color: lighten($pry-color-light, 18);
+                        color: $pry-color-dark;
+                        @include flex(center, center, 0);
+                    }
+                    &:hover {
+                        i:first-child {
+                            background: $pry-color-dark;
+                            color: lighten($pry-color-light, 20);
+                        }
+                    }
+                }
+                &.single {
+                    @extend .menu-item;
+                    i {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background-color: lighten($pry-color-light, 18);
+                        color: $pry-color-dark;
+                        @include flex(center, center, 0);
+                    }
+                    &:hover {
+                        i:first-child {
+                            background: $pry-color-dark;
+                            color: lighten($pry-color-light, 20);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

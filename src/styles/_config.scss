@@ -1,0 +1,60 @@
+$pry-color-light: rgb(125, 208, 228);
+$pry-color-dark: darken($pry-color-light, 30);
+$size-arr: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
+$box-shadow: 0px 0px 10px rgba(black, 0.3);
+$box-shadow-light: 0px 0px 4px rgba(black, 0.1);
+
+// Sizes
+$_1201: 1201px;
+$_901: 901px;
+$_801: 801px;
+
+@mixin grid($gtc, $gar, $gap, $ai: false, $ji: false) {
+    display: grid;
+    grid-template-columns: $gtc;
+    grid-auto-rows: $gar;
+    gap: $gap;
+
+    @if ($ai != false) {
+        align-items: $ai;
+    }
+    @if ($ji != false) {
+        justify-items: $ji;
+    }
+}
+
+@mixin flex($ai, $jc, $gap, $fd: row) {
+    display: flex;
+    align-items: $ai;
+    justify-content: $jc;
+    gap: $gap;
+    flex-direction: $fd;
+}
+
+@mixin media($prefix, $size) {
+    @media (#{$prefix}-width: $size) {
+        @content;
+    }
+}
+
+@mixin pry-color($bg: false, $color: false) {
+    background: $bg or $pry-color-dark;
+    color: $color or $pry-color-light;
+}
+
+@mixin pry-color-inverse($bg: false, $color: false) {
+    background: $bg or $pry-color-light;
+    color: $color or $pry-color-dark;
+}
+
+@each $size in $size-arr {
+    .p-#{$size} {
+        padding: #{$size}rem;
+    }
+    .p-x-#{$size} {
+        padding: 0 #{$size}rem;
+    }
+    .p-y-#{$size} {
+        padding: #{$size}rem 0;
+    }
+}
