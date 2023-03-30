@@ -4,14 +4,15 @@
     @include flex(stretch, start, 0);
     max-height: 90vh;
     overflow-y: hidden;
-    transition: 1s;
+    transition: 200ms;
     .left {
         transition: 1s;
         box-shadow: $box-shadow-light;
+        background-color: white;
     }
     .right {
         flex: 1;
-        max-height: 89vh;
+        max-height: 89.2vh;
         padding: 1rem 3rem;
         overflow-y: auto;
     }

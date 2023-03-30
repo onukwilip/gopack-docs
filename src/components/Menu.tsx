@@ -99,8 +99,8 @@ const menus = [
 
 const EachMenu = ({ menu, indent }: { menu: NavClass; indent: number }) => {
   return (
-    <NavLink
-      to={menu?.link}
+    <a
+      href={menu?.link}
       className={css["each-menu"]}
       style={{ marginLeft: `${indent * 12}px` }}
     >
@@ -112,8 +112,8 @@ const EachMenu = ({ menu, indent }: { menu: NavClass; indent: number }) => {
             <i className={`fa-solid fa-angle-down ${css.caret}`}></i>
           </div>
           <div className={css["sub-menu"]}>
-            {menu?.subMenu?.map((eachMenu) => (
-              <EachMenu menu={eachMenu} indent={indent + 1} />
+            {menu?.subMenu?.map((eachMenu, i) => (
+              <EachMenu menu={eachMenu} key={i} indent={indent + 1} />
             ))}
           </div>
         </>
@@ -123,22 +123,22 @@ const EachMenu = ({ menu, indent }: { menu: NavClass; indent: number }) => {
           <em>{menu?.name}</em>
         </div>
       )}
-    </NavLink>
+    </a>
   );
 };
 
 const Menu = ({ height }: { height?: string }) => {
   return (
     <>
-      <section
-        className={css.menu}
+      <div
+        className={`${css.menu}`}
         data-testid="menu"
         style={height ? { height: height } : {}}
       >
-        {menus?.map((eachMenu) => (
-          <EachMenu menu={eachMenu} indent={0} />
+        {menus?.map((eachMenu, i) => (
+          <EachMenu menu={eachMenu} key={i} indent={0} />
         ))}
-      </section>
+      </div>
     </>
   );
 };

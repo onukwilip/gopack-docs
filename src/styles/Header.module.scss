@@ -8,6 +8,7 @@
     position: sticky;
     top: 0;
     left: 0;
+    transition: 200ms;
     .logo-container {
         flex: 1;
         @include flex(center, start, 1rem);
@@ -31,7 +32,7 @@
         nav {
             @include flex(center, center, 2rem);
             a {
-                color: $pry-color-light;
+                color: $pry-color-dark;
                 text-shadow: $box-shadow-light;
                 font-size: 16px;
             }
@@ -54,8 +55,25 @@
 
                 &:hover {
                     transform: scale(1.3);
+                    background: $pry-color-dark;
+                    i {
+                        color: lighten($pry-color-light, 20);
+                    }
                 }
             }
+        }
+    }
+}
+.display-toogle {
+    @include flex(center, center, 10px);
+    padding: 1rem 0.5rem;
+    i {
+        font-size: 20px;
+        &:first-of-type {
+            color: orange;
+        }
+        &:last-of-type {
+            color: darken($pry-color-dark, 20);
         }
     }
 }

@@ -1,3 +1,5 @@
+@import "./config";
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
@@ -14,6 +16,7 @@ body {
 * {
   font-family: "Gumela";
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 code {
@@ -22,7 +25,8 @@ code {
   border-radius: 4px;
   background: lighten(lightgray, 10);
 }
-pre {
+.my-code-block {
+  position: relative;
   & > div {
     border-radius: 10px;
   }
@@ -31,8 +35,53 @@ pre {
     padding: 0;
     border-radius: 0;
   }
+  i.my-copy {
+    transition: 200ms;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 18px;
+    visibility: hidden;
+    padding: 10px;
+    border-radius: 50%;
+    color: $pry-color-dark;
+    cursor: pointer;
+    &:hover {
+      background-color: $pry-color-dark;
+      color: lighten($pry-color-light, 20);
+    }
+  }
+  &:hover {
+    i.my-copy {
+      visibility: visible;
+    }
+  }
 }
 
 em {
   font-style: normal;
+}
+
+header.dark {
+  background: darken($pry-color-dark, 30) !important;
+  color: $pry-color-light !important;
+}
+
+a {
+  color: darken($pry-color-light, 20) !important;
+}
+
+section.dark {
+  background: darken($pry-color-dark, 25) !important;
+  color: white !important;
+
+  code {
+    background-color: darken(darkgrey, 40) !important;
+    color: white !important;
+  }
+
+  .my-code-block code {
+    background-color: transparent !important;
+    color: inherit !important;
+  }
 }

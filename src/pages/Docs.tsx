@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Menu from "../components/Menu";
 import css from "../styles/Docs.module.scss";
 import { DocsClass } from "../utils/utils";
@@ -10,6 +10,8 @@ import {
   coldarkCold,
   duotoneSea,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { SelectorType } from "../utils/types";
+import { useSelector } from "react-redux";
 
 const documentation = [
   new DocsClass(
@@ -165,35 +167,143 @@ public: [
   ),
 ];
 
-const Docs: React.FC = () => {
+const titleHeaders = {
+  h1: ({ children, className }: any) => {
+    return (
+      <h1 className={className} id={children?.toString()?.toLowerCase()}>
+        {children}
+      </h1>
+    );
+  },
+  h2: ({ children, className }: any) => {
+    return (
+      <h2 className={className} id={children?.toString()?.toLowerCase()}>
+        {children}
+      </h2>
+    );
+  },
+  h3: ({ children, className }: any) => {
+    return (
+      <h3 className={className} id={children?.toString()?.toLowerCase()}>
+        {children}
+      </h3>
+    );
+  },
+  h4: ({ children, className }: any) => {
+    return (
+      <h4 className={className} id={children?.toString()?.toLowerCase()}>
+        {children}
+      </h4>
+    );
+  },
+  h5: ({ children, className }: any) => {
+    return (
+      <h5 className={className} id={children?.toString()?.toLowerCase()}>
+        {children}
+      </h5>
+    );
+  },
+  h6: ({ children, className }: any) => {
+    return (
+      <h6 className={className} id={children?.toString()?.toLowerCase()}>
+        {children}
+      </h6>
+    );
+  },
+};
+
+const CodeBlock = ({
+  children,
+  match,
+  props,
+}: {
+  children: React.ReactNode & React.ReactNode[];
+  match: RegExpExecArray | [];
+  props: Record<string, any>;
+}) => {
+  const [copied, setCopied] = useState(false);
+
+  const displayState = useSelector(
+    (state: SelectorType) => state?.display?.display
+  );
+
+  const onCopySuccess = () => {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1000 * 2);
+  };
+
+  const copyToClipBoard = async () => {
+    await navigator.clipboard.writeText(children?.toString());
+    onCopySuccess();
+  };
+
   return (
-    <section className={css.docs}>
+    <div className="my-code-block">
+      <SyntaxHighlighter
+        children={String(children).replace(/\n$/, "")}
+        style={(displayState === "dark" ? duotoneSea : coldarkCold) as any}
+        language={match[1]}
+        PreTag="div"
+        {...props}
+      />
+      <i
+        className={`${
+          copied ? "fa-solid fa-check" : "fa-regular fa-clone"
+        } my-copy`}
+        onClick={copyToClipBoard}
+      ></i>
+    </div>
+  );
+};
+
+const Docs = ({ searchWord }: { searchWord: string }) => {
+  const [filteredDocs, setFilteredDocs] =
+    useState<typeof documentation>(documentation);
+  const displayState = useSelector(
+    (state: SelectorType) => state?.display?.display
+  );
+
+  useEffect(() => {
+    setFilteredDocs(
+      documentation?.filter(
+        (docs) =>
+          docs?.title?.toLowerCase()?.includes(searchWord?.toLowerCase()) ||
+          docs?.body?.toLowerCase()?.includes(searchWord?.toLowerCase())
+      )
+    );
+  }, [searchWord]);
+
+  return (
+    <section
+      className={`${css.docs} ${displayState === "dark" ? "dark" : null}`}
+    >
       <div className={css.left}>
-        <Menu height="89vh" />
+        <Menu height="89.2vh" />
       </div>
       <div className={css.right}>
-        {documentation?.map((docs) => (
+        {filteredDocs?.map((docs, i) => (
           <>
             <ReactMarkdown
               children={docs?.title}
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
+              components={{ ...titleHeaders }}
+              key={docs?.title}
             />
             {docs?.body && (
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
                 children={docs?.body}
+                key={i}
                 components={{
                   code: ({ node, inline, className, children, ...props }) => {
                     const match = /language-(\w+)/.exec(className || "");
                     return !inline && match ? (
-                      <SyntaxHighlighter
-                        children={String(children).replace(/\n$/, "")}
-                        style={coldarkCold as any}
-                        language={match[1]}
-                        PreTag="div"
-                        {...props}
+                      <CodeBlock
+                        children={children}
+                        match={match}
+                        props={props}
                       />
                     ) : (
                       <code className={className} {...props}>
