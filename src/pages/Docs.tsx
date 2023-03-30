@@ -256,7 +256,13 @@ const CodeBlock = ({
   );
 };
 
-const Docs = ({ searchWord }: { searchWord: string }) => {
+const Docs = ({
+  searchWord,
+  setSearchWord,
+}: {
+  searchWord: string;
+  setSearchWord: Function;
+}) => {
   const [filteredDocs, setFilteredDocs] =
     useState<typeof documentation>(documentation);
   const displayState = useSelector(
@@ -278,7 +284,7 @@ const Docs = ({ searchWord }: { searchWord: string }) => {
       className={`${css.docs} ${displayState === "dark" ? "dark" : null}`}
     >
       <div className={css.left}>
-        <Menu height="89.2vh" />
+        <Menu height="89.2vh" setSearchWord={setSearchWord} />
       </div>
       <div className={css.right}>
         {filteredDocs?.map((docs, i) => (

@@ -14,7 +14,7 @@ const nav = [
   new NavClass("Issues", "/issues"),
 ];
 
-const social = [
+export const social = [
   new NavClass(
     "Linkedin",
     "https://www.linkedin.com/company/goit-gopack/",
@@ -84,6 +84,9 @@ const Header = ({ setSearchWord }: { setSearchWord: Function }) => {
         </div>
       </div>
       <ToogleDisplay />
+      <div className={css.hamburger}>
+        <i className="fa-solid fa-bars-progress"></i>
+      </div>
     </header>
   );
 };

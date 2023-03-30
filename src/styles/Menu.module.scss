@@ -43,6 +43,50 @@ $menu-list-padding: 1.5rem;
             padding: 0.3rem 0;
         }
     }
+    .mobile-view {
+        width: 100%;
+        .icons {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: lighten($pry-color-light, 18);
+            color: $pry-color-dark;
+            @include flex(center, center, 0);
+
+            &:hover {
+                background: $pry-color-dark;
+                color: lighten($pry-color-light, 20);
+            }
+        }
+        .input-container {
+            display: none;
+            @include media(max, 811px) {
+                display: block;
+            }
+        }
+        .input {
+            input {
+                border-radius: 50px;
+                padding: 1rem 2rem;
+                width: 100%;
+            }
+            display: none;
+        }
+        .search-icon {
+            @extend .icons;
+        }
+        .social {
+            width: 100%;
+            @include flex(center, center, 1rem, column);
+            i {
+                @extend .icons;
+            }
+        }
+        display: none;
+        @include media(max, 1101px) {
+            @include flex(center, center, 1rem, column);
+        }
+    }
     &:hover {
         @include flex(start, start, 0, column);
         width: 300px;
@@ -51,6 +95,18 @@ $menu-list-padding: 1.5rem;
         &::-webkit-scrollbar {
             display: block;
             width: 5px !important;
+        }
+        .mobile-view {
+            .input {
+                display: block;
+            }
+            .search-icon {
+                display: none;
+            }
+            .social {
+                @include flex(center, center, 1.5rem);
+            }
+            margin-bottom: 10px;
         }
         .menu-item {
             @include flex(center, space-between, 1rem, row);

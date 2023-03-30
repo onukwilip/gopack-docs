@@ -13,7 +13,12 @@ function App() {
       <>
         <Routes>
           <Route path="/" element={<Navigate to="/docs" />} />
-          <Route path="/docs" element={<Docs searchWord={searchWord} />} />
+          <Route
+            path="/docs"
+            element={
+              <Docs searchWord={searchWord} setSearchWord={setSearchWord} />
+            }
+          />
         </Routes>
       </>
     </section>

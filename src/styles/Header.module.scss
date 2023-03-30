@@ -2,7 +2,7 @@
 
 .header {
     max-width: 100vw;
-    @include flex(flex-start, space-between, 2rem);
+    @include flex(stretch, space-between, 2rem);
     padding: 1rem 2rem;
     box-shadow: $box-shadow-light;
     position: sticky;
@@ -27,6 +27,12 @@
                 border-radius: 50px;
                 padding: 1rem 2rem;
                 width: 300px;
+                @include media(max, 891px) {
+                    width: 250px;
+                }
+            }
+            @include media(max, 811px) {
+                display: none;
             }
         }
         nav {
@@ -61,7 +67,27 @@
                     }
                 }
             }
+            @include media(max, 1101px) {
+                display: none;
+            }
         }
+    }
+    .hamburger {
+        display: none;
+        padding: 0.5rem;
+        i {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            color: darken($pry-color-dark, 20);
+            background: lighten($pry-color-light, 10);
+        }
+        @include media(max, 811px) {
+            @include flex(center, center, 10px);
+        }
+    }
+    @include media(max, 821px) {
+        padding: 1rem;
     }
 }
 .display-toogle {
