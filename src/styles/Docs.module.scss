@@ -9,11 +9,26 @@
         transition: 1s;
         box-shadow: $box-shadow-light;
         background-color: white;
+
+        @include media(max, 701px) {
+            &:hover {
+                position: absolute;
+                z-index: 1;
+            }
+        }
+
+        @include media(max, 431px) {
+            display: none;
+        }
     }
     .right {
         flex: 1;
         max-height: 89.2vh;
         padding: 1rem 3rem;
         overflow-y: auto;
+        overflow-wrap: break-word;
+        @include media(max, 451px) {
+            padding: 1rem;
+        }
     }
 }

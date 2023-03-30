@@ -1,6 +1,119 @@
 @import "./config";
 
-$menu-list-padding: 1.5rem;
+@mixin menuItem() {
+    @include flex(center, space-between, 1rem, row);
+    padding: 0.5rem 0;
+}
+
+@mixin menuWide() {
+    @include flex(start, start, 0, column);
+    width: 300px;
+    min-width: 300px;
+    padding: 1rem 2rem;
+    &::-webkit-scrollbar {
+        display: block;
+        width: 5px !important;
+    }
+    .mobile-view {
+        .input {
+            display: block;
+        }
+        .search-icon {
+            display: none;
+        }
+        .social {
+            @include flex(center, center, 1.5rem);
+        }
+        nav {
+            width: 100%;
+            padding: 1rem 0;
+            a {
+                display: block;
+            }
+            i {
+                display: none;
+            }
+            border-bottom: 1px solid $pry-color-light;
+        }
+        margin-bottom: 10px;
+    }
+
+    em {
+        display: block;
+    }
+    i.caret {
+        display: block;
+    }
+    .each-menu {
+        transition: 200ms;
+        @include flex(start, space-between, 1rem, column);
+        width: 100%;
+        text-transform: capitalize;
+        & > div {
+            &.sub-menu {
+                @include flex(start, center, 0, column);
+                margin-left: 15px;
+                .single {
+                    transition: 200ms;
+                    i {
+                        background-color: transparent;
+                        width: 0;
+                        height: 0;
+                        border-radius: 0;
+                        font-size: 10px;
+                    }
+                    &:hover {
+                        background: lighten($pry-color-light, 25);
+                        padding-left: 1rem;
+                        padding-right: 1rem;
+                        border-radius: 20px;
+                        i:first-child {
+                            color: $pry-color-dark;
+                        }
+                    }
+                }
+                border-left: 3px dotted $pry-color-light;
+            }
+            &.sub-menu-parent {
+                @include menuItem();
+                em {
+                    font-size: 15px;
+                }
+                i:first-of-type {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background-color: lighten($pry-color-light, 18);
+                    color: $pry-color-dark;
+                    @include flex(center, center, 0);
+                }
+                &:hover {
+                    i:first-child {
+                        background: $pry-color-dark;
+                        color: lighten($pry-color-light, 20);
+                    }
+                }
+            }
+            &.single {
+                @include menuItem();
+                i {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background-color: lighten($pry-color-light, 18);
+                    color: $pry-color-dark;
+                    @include flex(center, center, 0);
+                }
+                &:hover {
+                    i:first-child {
+                        background: $pry-color-dark;
+                        color: lighten($pry-color-light, 20);
+                    }
+                }
+            }
+        }
+    }
+}
 
 .menu {
     transition: 100ms;
@@ -82,110 +195,30 @@ $menu-list-padding: 1.5rem;
                 @extend .icons;
             }
         }
+        nav {
+            width: 100%;
+            a {
+                display: none;
+            }
+            i {
+                @extend .icons;
+            }
+            display: none;
+            @include media(max, 611px) {
+                @include flex(center, center, 2rem);
+            }
+        }
         display: none;
         @include media(max, 1101px) {
             @include flex(center, center, 1rem, column);
         }
     }
+
+    @include media(max, 431px) {
+        @include menuWide();
+    }
+
     &:hover {
-        @include flex(start, start, 0, column);
-        width: 300px;
-        min-width: 300px;
-        padding: 1rem 2rem;
-        &::-webkit-scrollbar {
-            display: block;
-            width: 5px !important;
-        }
-        .mobile-view {
-            .input {
-                display: block;
-            }
-            .search-icon {
-                display: none;
-            }
-            .social {
-                @include flex(center, center, 1.5rem);
-            }
-            margin-bottom: 10px;
-        }
-        .menu-item {
-            @include flex(center, space-between, 1rem, row);
-            padding: 0.5rem 0;
-        }
-        em {
-            display: block;
-        }
-        i.caret {
-            display: block;
-        }
-        .each-menu {
-            transition: 200ms;
-            @include flex(start, space-between, 1rem, column);
-            width: 100%;
-            text-transform: capitalize;
-            & > div {
-                &.sub-menu {
-                    @include flex(start, center, 0, column);
-                    margin-left: 15px;
-                    .single {
-                        transition: 200ms;
-                        i {
-                            background-color: transparent;
-                            width: 0;
-                            height: 0;
-                            border-radius: 0;
-                            font-size: 10px;
-                        }
-                        &:hover {
-                            background: lighten($pry-color-light, 25);
-                            padding-left: 1rem;
-                            padding-right: 1rem;
-                            border-radius: 20px;
-                            i:first-child {
-                                color: $pry-color-dark;
-                            }
-                        }
-                    }
-                    border-left: 3px dotted $pry-color-light;
-                }
-                &.sub-menu-parent {
-                    @extend .menu-item;
-                    em {
-                        font-size: 15px;
-                    }
-                    i:first-of-type {
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        background-color: lighten($pry-color-light, 18);
-                        color: $pry-color-dark;
-                        @include flex(center, center, 0);
-                    }
-                    &:hover {
-                        i:first-child {
-                            background: $pry-color-dark;
-                            color: lighten($pry-color-light, 20);
-                        }
-                    }
-                }
-                &.single {
-                    @extend .menu-item;
-                    i {
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        background-color: lighten($pry-color-light, 18);
-                        color: $pry-color-dark;
-                        @include flex(center, center, 0);
-                    }
-                    &:hover {
-                        i:first-child {
-                            background: $pry-color-dark;
-                            color: lighten($pry-color-light, 20);
-                        }
-                    }
-                }
-            }
-        }
+        @include menuWide();
     }
 }

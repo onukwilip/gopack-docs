@@ -3,73 +3,7 @@ import css from "../styles/Menu.module.scss";
 import { Input, Icon, Form } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { NavClass } from "../utils/utils";
-import { motion, AnimatePresence } from "framer-motion";
-import { social } from "./Header";
-
-// const MobileMenu = ({ toogleMenu }: { toogleMenu: Function }) => {
-//   const variants = {
-//     initial: {
-//       // opacity: 0.5,
-//       x: -100,
-//     },
-//     animate: {
-//       // opacity: 1,
-//       x: 0,
-//     },
-//     exit: {
-//       // opacity: 0,
-//       x: -1000,
-//     },
-//   };
-//   return (
-//     <motion.div
-//       variants={variants}
-//       initial="initial"
-//       animate="animate"
-//       exit="exit"
-//       className={css["mobile-menu"]}
-//       data-testid="mobileMenu"
-//     >
-//       <div
-//         className={css["search-container"]}
-//         data-testid="mobileSearchContainer"
-//       >
-//         <Input
-//           className={css.search}
-//           action={{
-//             color: "blue",
-//             icon: "search",
-//           }}
-//           placeholder="Search for anything"
-//         />
-
-//         <div
-//           className={css["icon-container"]}
-//           onClick={(e) => toogleMenu((prev: any) => !prev)}
-//           data-testid="hideMenu"
-//         >
-//           <i className="fa-solid fa-xmark"></i>
-//         </div>
-//       </div>
-//       <div
-//         className={css["profile-container"]}
-//         data-testid="mobileProfileContainer"
-//       >
-//         <div className={css.profile}>
-//           <img
-//             src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-//             alt="profile pic"
-//           />
-//           <em>Prince Onukwili</em>
-//           <Icon name="caret down" />
-//         </div>
-//         <a href="#">Docs</a>
-//         <Icon name="bell outline" />
-//       </div>
-//       <Menu data-testid="menu" />
-//     </motion.div>
-//   );
-// };
+import { nav, social } from "./Header";
 
 const menus = [
   new NavClass("Introduction", "#introduction", "info icon"),
@@ -162,6 +96,14 @@ const Menu = ({
               </Link>
             ))}
           </div>
+          <nav>
+            {nav.map((eachMenu, i) => (
+              <Link to={eachMenu?.link} key={i}>
+                {eachMenu?.name}
+              </Link>
+            ))}
+            <i className="fa-solid fa-bars"></i>
+          </nav>
         </div>
         {menus?.map((eachMenu, i) => (
           <EachMenu menu={eachMenu} key={i} indent={0} />
