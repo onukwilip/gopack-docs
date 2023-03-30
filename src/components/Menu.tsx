@@ -44,11 +44,10 @@ const EachMenu = ({ menu, indent }: { menu: NavClass; indent: number }) => {
       href={menu?.link}
       className={css["each-menu"]}
       style={{ marginLeft: `${indent * 12}px` }}
-      onClick={toogleMenu}
     >
       {menu?.subMenu ? (
         <>
-          <div className={css["sub-menu-parent"]}>
+          <div className={css["sub-menu-parent"]} onClick={toogleMenu}>
             <i className={menu?.icon || "fas fa-circle-dot"}></i>
             <em>{menu?.name}</em>
             <i className={`fa-solid fa-angle-down ${css.caret}`}></i>
@@ -60,7 +59,7 @@ const EachMenu = ({ menu, indent }: { menu: NavClass; indent: number }) => {
           </div>
         </>
       ) : (
-        <div className={css.single}>
+        <div className={css.single} onClick={toogleMenu}>
           <i className={menu?.icon || "fas fa-circle-dot"}></i>
           <em>{menu?.name}</em>
         </div>
