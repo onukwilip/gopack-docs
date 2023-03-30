@@ -4,6 +4,8 @@ import { Input, Icon, Form } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { NavClass } from "../utils/utils";
 import { nav, social } from "./Header";
+import { responsiveActions } from "../store/store";
+import { useDispatch } from "react-redux";
 
 const menus = [
   new NavClass("Introduction", "#introduction", "info icon"),
@@ -33,11 +35,16 @@ const menus = [
 ];
 
 const EachMenu = ({ menu, indent }: { menu: NavClass; indent: number }) => {
+  const dispatch = useDispatch();
+  const toogleMenu = () => {
+    dispatch(responsiveActions.toogle());
+  };
   return (
     <a
       href={menu?.link}
       className={css["each-menu"]}
       style={{ marginLeft: `${indent * 12}px` }}
+      onClick={toogleMenu}
     >
       {menu?.subMenu ? (
         <>

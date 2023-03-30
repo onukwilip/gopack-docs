@@ -6,7 +6,7 @@ import { NavClass } from "../utils/utils";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SelectorType } from "../utils/types";
-import { displayActions } from "../store/store";
+import { displayActions, responsiveActions } from "../store/store";
 import { motion, AnimatePresence } from "framer-motion";
 import Menu from "./Menu";
 
@@ -46,13 +46,11 @@ const ToogleDisplay = () => {
   );
 };
 
-const MobileMenu = ({
-  setSearchWord,
-  toogleMenu,
-}: {
-  setSearchWord: Function;
-  toogleMenu: Function;
-}) => {
+const MobileMenu = ({ setSearchWord }: { setSearchWord: Function }) => {
+  const dispatch = useDispatch();
+  const toogleMenu = () => {
+    dispatch(responsiveActions.toogle());
+  };
   const variants = {
     initial: {
       x: "-100px",
@@ -85,23 +83,24 @@ const MobileMenu = ({
 };
 
 const Header = ({ setSearchWord }: { setSearchWord: Function }) => {
-  const [showMenu, setShowMenu] = useState(false);
+  const showMenu = useSelector(
+    (state: SelectorType) => state?.responsive?.showMenu
+  );
   const onSearch = (e: any) => {
     setSearchWord(e?.target?.value);
   };
   const displayState = useSelector(
     (state: SelectorType) => state?.display?.display
   );
+  const dispatch = useDispatch();
   const toogleMenu = () => {
-    setShowMenu((prev) => !prev);
+    dispatch(responsiveActions.toogle());
   };
 
   return (
     <>
       <AnimatePresence>
-        {showMenu && (
-          <MobileMenu setSearchWord={setSearchWord} toogleMenu={toogleMenu} />
-        )}
+        {showMenu && <MobileMenu setSearchWord={setSearchWord} />}
       </AnimatePresence>
 
       <header
