@@ -1,6 +1,6 @@
 import { useState } from "react";
 import css from "../styles/Header.module.scss";
-import logo from "../assets/images/gopack_logo2.png";
+import logo from "../assets/images/gopack_logo_new.png";
 import { Input, Icon, Checkbox } from "semantic-ui-react";
 import { NavClass } from "../utils/utils";
 import { Link } from "react-router-dom";
