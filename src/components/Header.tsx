@@ -10,10 +10,12 @@ import { displayActions, responsiveActions } from "../store/store";
 import { motion, AnimatePresence } from "framer-motion";
 import Menu from "./Menu";
 
+const domain = "https://gopack.vercel.app";
+
 export const nav = [
-  new NavClass("Home", "/"),
+  new NavClass("Home", domain),
   new NavClass("Docs", "/docs"),
-  new NavClass("Issues", "/issues"),
+  new NavClass("Issues", "https://github.com/onukwilip/gopack/issues"),
 ];
 
 export const social = [
@@ -106,14 +108,14 @@ const Header = ({ setSearchWord }: { setSearchWord: Function }) => {
       <header
         className={`${css.header} ${displayState === "dark" ? "dark" : null}`}
       >
-        <div className={css["logo-container"]}>
+        <a href={domain} className={css["logo-container"]}>
           <div>
             <img src={logo} alt="logo" />
           </div>
           <div>
             <h1>GOPack</h1>
           </div>
-        </div>
+        </a>
         <div className={css.other}>
           <div className={css["search-container"]}>
             <Input icon="search" onChange={onSearch} placeholder="Search" />
