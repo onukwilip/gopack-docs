@@ -150,6 +150,48 @@ public: [
     "This accepts a string which is the name or path to the folder the bundled images and assets will be stored. E.g. `images` or `path/to/images`."
   ),
   new DocsClass(
+    "#### mapPlugins",
+    `This accepts an \`object\`. The value of this is passed to the \`webpack.ProvidePlugin()\` class. This automatically load modules instead of having to **import** or **require** them everywhere in your project.
+
+Here is an example of it's possible values:
+
+\`\`\`javascript
+{
+    identifier: 'module'
+    // OR
+    identifier: path.resolve(path.join(__dirname, 'path/to/module.js'))
+}
+\`\`\`
+The identifier is a user-defined value/key, while the module is either the name of a library in the \`node_modules\` folder or path to a javascript/typescript file. The **module** is automatically loaded and the **identifier** is filled with the exports of the loaded module (or property in order to support named exports).
+
+Common usages of this option are: 
+
+- [jQuery][jQuery]
+
+[jQuery]: #jquery`
+  ),
+  new DocsClass(
+    "##### jQuery",
+    `To automatically load jQuery we can point both variables it exposes to the corresponding node module:
+
+\`\`\`js
+{
+  $: 'jquery',
+  jQuery: 'jquery',
+}
+\`\`\`
+
+Then in any of our source code:
+
+\`\`\`js
+// in a module
+$('#item'); // <= works
+jQuery('#item'); // <= also works
+// $ is automatically set to the exports of module "jquery"
+
+\`\`\``
+  ),
+  new DocsClass(
     "## Libraries",
     "GOPack also supports the use of other libraries which are:"
   ),
@@ -164,6 +206,32 @@ public: [
   new DocsClass(
     "### SASS",
     "GOPack has built-in support for SASS. It uses the `sass-loader` loader to handle both `.sass` and `.scss` files. If you need to use SASS in your project you just need to install the `sass` library in your project. To learn more about SASS, visit [https://sass-lang.com/documentation/](https://sass-lang.com/documentation/)."
+  ),
+  new DocsClass(
+    "",
+    `**N.B: If you need to add any configuration to webpack which is not present in the \`gopack.config.js\`, add it to the \`module.exports\` object in the \`webpack.config.js\` or better still to the variable belonging to that configuration. E.g.**
+\`\`\`js
+//OUTPUT
+const output = {
+  filename: gopackConfig?.entry
+    ? gopackConfig?.outputFilenameFormat || "[name].bundle.js"
+    : gopackConfig?.outputFilename || "bundle.js",
+  path: path.resolve(gopackConfig?.outputFolder || "public"),
+  assetModuleFilename: \`\${
+    gopackConfig?.assetsFolder || "images"
+  }/[hash][ext][query]\`,
+  clean: true,
+};
+\`\`\`
+**The \`output\` constant belongs to the \`output\` key in the webpack configuration**
+\`\`\`js
+module.exports = {
+  ...,
+  output: output,
+  ...
+};
+
+\`\`\``
   ),
 ];
 

@@ -25,6 +25,9 @@ const menus = [
       new NavClass("outputFolder", "#outputfolder", undefined),
       new NavClass("pages", "#pages", undefined),
       new NavClass("assetsFolder", "#assetsfolder", undefined),
+      new NavClass("mapPlugins", "#mapplugins", "fa-regular fa-clone", [
+        new NavClass("jQuery", "#jquery", undefined),
+      ]),
     ]),
   ]),
   new NavClass("Libraries", "#libraries", "fas fa-book", [
