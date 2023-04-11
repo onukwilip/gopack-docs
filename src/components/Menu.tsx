@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import css from "../styles/Menu.module.scss";
 import { Input, Icon, Form } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
-import { NavClass } from "../utils/utils";
+import { NavClass, searchFunction } from "../utils/utils";
 import { nav, social } from "./Header";
-import { responsiveActions } from "../store/store";
+import { responsiveActions, searchActions } from "../store/store";
 import { useDispatch } from "react-redux";
 
 const menus = [
@@ -71,15 +71,13 @@ const EachMenu = ({ menu, indent }: { menu: NavClass; indent: number }) => {
   );
 };
 
-const Menu = ({
-  setSearchWord,
-  height,
-}: {
-  setSearchWord: Function;
-  height?: string;
-}) => {
+const Menu = ({ height }: { height?: string }) => {
+  const [searchTimeout, setSearchTimeout] = useState<any>();
+  const dispatch = useDispatch();
   const onSearch = (e: any) => {
-    setSearchWord(e?.target?.value);
+    const value = e?.target?.value;
+    dispatch(searchActions.searchHandler(value));
+    searchFunction({ searchWord: value, searchTimeout, setSearchTimeout });
   };
 
   return (
@@ -92,7 +90,13 @@ const Menu = ({
         <div className={css["mobile-view"]}>
           <div className={css["input-container"]}>
             <div className={css.input}>
-              <Input icon="search" onChange={onSearch} placeholder="Search" />
+              <Input
+                icon="search"
+                onChange={onSearch}
+                id="searchInput"
+                onKeyDown={onSearch}
+                placeholder="Search"
+              />
             </div>
             <i
               className={`fa-solid fa-magnifying-glass ${css["search-icon"]}`}

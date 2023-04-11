@@ -5,4 +5,7 @@ export type SelectorType = {
   responsive: {
     showMenu: boolean;
   };
+  search: {
+    searchWord: string;
+  };
 };

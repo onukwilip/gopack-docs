@@ -2,11 +2,15 @@ import { useState } from "react";
 import css from "../styles/Header.module.scss";
 import logo from "../assets/images/gopack_logo_new.png";
 import { Input, Icon, Checkbox } from "semantic-ui-react";
-import { NavClass } from "../utils/utils";
+import { NavClass, searchFunction } from "../utils/utils";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SelectorType } from "../utils/types";
-import { displayActions, responsiveActions } from "../store/store";
+import {
+  displayActions,
+  responsiveActions,
+  searchActions,
+} from "../store/store";
 import { motion, AnimatePresence } from "framer-motion";
 import Menu from "./Menu";
 
@@ -48,7 +52,7 @@ const ToogleDisplay = () => {
   );
 };
 
-const MobileMenu = ({ setSearchWord }: { setSearchWord: Function }) => {
+const MobileMenu = () => {
   const dispatch = useDispatch();
   const toogleMenu = () => {
     dispatch(responsiveActions.toogle());
@@ -75,7 +79,7 @@ const MobileMenu = ({ setSearchWord }: { setSearchWord: Function }) => {
       exit="exit"
       className={css["mobile-menu"]}
     >
-      <Menu height="100vh" setSearchWord={setSearchWord} />
+      <Menu height="100vh" />
       <i
         className={`fa-solid fa-circle-xmark ${css.cancel}`}
         onClick={toogleMenu as any}
@@ -84,16 +88,21 @@ const MobileMenu = ({ setSearchWord }: { setSearchWord: Function }) => {
   );
 };
 
-const Header = ({ setSearchWord }: { setSearchWord: Function }) => {
+const Header = () => {
+  const [searchTimeout, setSearchTimeout] = useState<any>();
   const showMenu = useSelector(
     (state: SelectorType) => state?.responsive?.showMenu
   );
+
   const onSearch = (e: any) => {
-    setSearchWord(e?.target?.value);
+    const value = e?.target?.value;
+    dispatch(searchActions.searchHandler(value));
+    searchFunction({ searchWord: value, searchTimeout, setSearchTimeout });
   };
   const displayState = useSelector(
     (state: SelectorType) => state?.display?.display
   );
+
   const dispatch = useDispatch();
   const toogleMenu = () => {
     dispatch(responsiveActions.toogle());
@@ -101,9 +110,7 @@ const Header = ({ setSearchWord }: { setSearchWord: Function }) => {
 
   return (
     <>
-      <AnimatePresence>
-        {showMenu && <MobileMenu setSearchWord={setSearchWord} />}
-      </AnimatePresence>
+      <AnimatePresence>{showMenu && <MobileMenu />}</AnimatePresence>
 
       <header
         className={`${css.header} ${displayState === "dark" ? "dark" : null}`}
@@ -118,7 +125,13 @@ const Header = ({ setSearchWord }: { setSearchWord: Function }) => {
         </a>
         <div className={css.other}>
           <div className={css["search-container"]}>
-            <Input icon="search" onChange={onSearch} placeholder="Search" />
+            <Input
+              icon="search"
+              onChange={onSearch}
+              onKeyDown={onSearch}
+              placeholder="Search"
+              id="searchInput"
+            />
           </div>
           <nav>
             {nav.map((eachMenu, i) => (

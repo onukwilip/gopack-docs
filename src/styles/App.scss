@@ -1,5 +1,13 @@
+@import "./config";
+
 .App {
   max-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+.loader {
+  width: 100%;
+  height: 100%;
+  @include flex(center, center, 0, row);
 }
