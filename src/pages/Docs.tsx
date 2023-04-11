@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Menu from "../components/Menu";
 import css from "../styles/Docs.module.scss";
-import { DocsClass } from "../utils/utils";
+import { DocsClass, backupReadme } from "../utils/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import useAjaxHook from "use-ajax-request";
 import axios from "axios";
 import Loader from "../components/Loader";
+import { Message } from "semantic-ui-react";
 
 const titleHeaders = {
   h1: ({ children, className }: any) => {
@@ -128,7 +129,11 @@ const Docs = () => {
       localStorage.setItem("readme", data);
       setDocumentation(data);
     };
-    await getReadme(onSuccess);
+    const onError = (error: any) => {
+      setDocumentation(backupReadme);
+      console.log(error);
+    };
+    await getReadme(onSuccess, onError);
   };
 
   const checkIfReadmeExists = async () => {
@@ -153,10 +158,21 @@ const Docs = () => {
           <div style={{ width: "100%", height: "100%" }}>
             <Loader />
           </div>
-        ) : errorGettingReadme ? (
-          <p>Error</p>
         ) : (
           <>
+            {errorGettingReadme && (
+              <>
+                <Message
+                  header={
+                    errorGettingReadme?.response?.status ||
+                    errorGettingReadme?.status ||
+                    "An error occured"
+                  }
+                  error
+                  content="There was an error getting the latest documentation please visit the GitHub repository to view the latest documentation `https://github.com/onukwilip/gopack`"
+                />
+              </>
+            )}
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
