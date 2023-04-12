@@ -107,10 +107,10 @@ const CodeBlock = ({
 };
 
 const Docs = () => {
+  const splitValue =
+    "[//]: #122333444455555/this/shouldn't/be/repeated/in/the/readme";
+  const [unParsedDocumentation, setUnParsedDocumentation] = useState("");
   const [documentation, setDocumentation] = useState("");
-  const displayState = useSelector(
-    (state: SelectorType) => state?.display?.display
-  );
   const {
     sendRequest: getReadme,
     data: readmeContents,
@@ -127,10 +127,10 @@ const Docs = () => {
   const getReadMeFileAndSaveToLocalStorage = async () => {
     const onSuccess = ({ data }: { data: any }) => {
       localStorage.setItem("readme", data);
-      setDocumentation(data);
+      setUnParsedDocumentation(data);
     };
     const onError = (error: any) => {
-      setDocumentation(backupReadme);
+      setUnParsedDocumentation(backupReadme);
       console.log(error);
     };
     await getReadme(onSuccess, onError);
@@ -139,12 +139,20 @@ const Docs = () => {
   const checkIfReadmeExists = async () => {
     const readme = localStorage.getItem("readme");
     if (!readme) return await getReadMeFileAndSaveToLocalStorage();
-    setDocumentation(readme);
+    setUnParsedDocumentation(readme);
   };
 
   useEffect(() => {
     checkIfReadmeExists();
   }, []);
+
+  useEffect(() => {
+    const parsedDocs = unParsedDocumentation?.split(splitValue);
+    parsedDocs[1]
+      ? setDocumentation(parsedDocs[1])
+      : setDocumentation(unParsedDocumentation);
+    console.log("parsed docs", parsedDocs);
+  }, [unParsedDocumentation]);
 
   return (
     <section className={`${css.docs}`}>
