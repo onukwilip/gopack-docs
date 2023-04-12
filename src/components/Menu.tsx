@@ -21,6 +21,11 @@ const menus = [
       new NavClass("useCoreJs", "#usecorejs", undefined),
       new NavClass("entry", "#entry", undefined),
       new NavClass("outputFilenameFormat", "#outputfilenameformat", undefined),
+      new NavClass(
+        "outputImageNameFormat",
+        "#outputImagenameformat",
+        undefined
+      ),
       new NavClass("outputFilename", "#outputfilename", undefined),
       new NavClass("outputFolder", "#outputfolder", undefined),
       new NavClass("pages", "#pages", undefined),
@@ -28,12 +33,18 @@ const menus = [
       new NavClass("mapPlugins", "#mapplugins", "fa-regular fa-clone", [
         new NavClass("jQuery", "#jquery", undefined),
       ]),
+      new NavClass("libraries", "#libraries", undefined),
     ]),
   ]),
   new NavClass("Libraries", "#libraries", "fas fa-book", [
     new NavClass("React", "#react", undefined),
+    new NavClass("Vue", "#vue", undefined),
+    new NavClass("JQuery", "#jquery", undefined),
     new NavClass("Typescript", "#typescript", undefined),
     new NavClass("SASS", "#sass", undefined),
+    new NavClass("Ejs", "#ejs", undefined),
+    new NavClass("Pug", "#pug", undefined),
+    new NavClass("Handlebars", "#hbs", undefined),
   ]),
 ];
 
