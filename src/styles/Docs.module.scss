@@ -2,7 +2,7 @@
 
 .docs {
     @include flex(stretch, start, 0);
-    max-height: 90vh;
+    height: 86.1vh;
     overflow-y: hidden;
     transition: 200ms;
     .left {
@@ -23,7 +23,7 @@
     }
     .right {
         flex: 1;
-        max-height: 89.2vh;
+        height: 86.1vh;
         padding: 1rem 3rem;
         overflow-y: auto;
         overflow-wrap: break-word;

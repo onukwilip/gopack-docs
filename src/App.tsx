@@ -3,10 +3,16 @@ import "./styles/App.scss";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Docs from "./pages/Docs";
 import Header from "./components/Header";
+import { useSelector } from "react-redux";
+import { SelectorType } from "./utils/types";
 
-function App() {
+const App = () => {
+  const displayState = useSelector(
+    (state: SelectorType) => state?.display?.display
+  );
+
   return (
-    <section className="App">
+    <section className={`App ${displayState === "dark" ? "dark" : null}`}>
       <Header />
       <>
         <Routes>
@@ -18,6 +24,6 @@ function App() {
       </>
     </section>
   );
-}
+};
 
 export default App;

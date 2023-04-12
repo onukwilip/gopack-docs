@@ -147,9 +147,7 @@ const Docs = () => {
   }, []);
 
   return (
-    <section
-      className={`${css.docs} ${displayState === "dark" ? "dark" : null}`}
-    >
+    <section className={`${css.docs}`}>
       <div className={css.left}>
         <Menu height="89.2vh" />
       </div>
