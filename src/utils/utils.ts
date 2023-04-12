@@ -31,3 +31,30 @@ export const searchFunction = ({
   };
   setSearchTimeout(setTimeout(() => search(), 500));
 };
+
+export const manageMqttConnection = () => {
+  const config = {
+    protocol: "ws",
+    clientId: "mqttjs_" + Math.random().toString(16).substr(2, 8),
+    reconnectPeriod: 1000,
+    keepalive: 10,
+  };
+
+  const client = window.mqtt?.connect("ws://broker.emqx.io:8083/mqtt", config);
+
+  client?.subscribe(process.env.REACT_APP_MQTT_TOPIC as string);
+
+  client?.on("connect", () => {
+    console.log("Connected");
+  });
+
+  client?.on("offline", () => {
+    console.log("offline");
+  });
+
+  client?.on("message", (topic: any, message: any) => {
+    const readmeJson = JSON.parse(message?.toString()) || undefined;
+    localStorage.setItem("readme", readmeJson?.readme);
+    console.log(readmeJson);
+  });
+};
