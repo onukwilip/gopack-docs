@@ -34,6 +34,8 @@ const menus = [
         new NavClass("jQuery", "#jquery", undefined),
       ]),
       new NavClass("libraries", "#libraries", undefined),
+      new NavClass("node", "#node", undefined),
+      new NavClass("target", "#target", undefined),
     ]),
   ]),
   new NavClass("Libraries", "#libraries", "fas fa-book", [
@@ -47,6 +49,7 @@ const menus = [
     new NavClass("Pug", "#pug", undefined),
     new NavClass("Handlebars", "#handlebars", undefined),
   ]),
+  new NavClass("Node Js", "#nodejs", "fa-brands fa-node"),
 ];
 
 const EachMenu = ({ menu, indent }: { menu: NavClass; indent: number }) => {
