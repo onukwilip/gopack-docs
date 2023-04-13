@@ -16,6 +16,9 @@ import useAjaxHook from "use-ajax-request";
 import axios from "axios";
 import Loader from "../components/Loader";
 import { Message } from "semantic-ui-react";
+import { Subject } from "rxjs";
+
+export const observable = new Subject();
 
 const titleHeaders = {
   h1: ({ children, className }: any) => {
@@ -142,16 +145,30 @@ const Docs = () => {
     setUnParsedDocumentation(readme);
   };
 
+  const observableObject = {
+    next: (data: any) => {
+      const readme = data?.readme;
+      if (readme) setUnParsedDocumentation(readme);
+      console.log("Subscription called", data);
+    },
+    complete: () => {},
+    error: () => {},
+  };
+
+  observable.subscribe(observableObject);
+
   useEffect(() => {
     checkIfReadmeExists();
   }, []);
 
   useEffect(() => {
-    const parsedDocs = unParsedDocumentation?.split(splitValue);
-    parsedDocs[1]
-      ? setDocumentation(parsedDocs[1])
-      : setDocumentation(unParsedDocumentation);
-    console.log("parsed docs", parsedDocs);
+    if (unParsedDocumentation?.trim() !== "") {
+      const parsedDocs = unParsedDocumentation?.split(splitValue);
+      parsedDocs[1]
+        ? setDocumentation(parsedDocs[1])
+        : setDocumentation(unParsedDocumentation);
+      console.log("parsed docs", parsedDocs);
+    }
   }, [unParsedDocumentation]);
 
   return (
