@@ -39,6 +39,7 @@ const menus = [
   new NavClass("Libraries", "#libraries", "fas fa-book", [
     new NavClass("React", "#react", undefined),
     new NavClass("Vue", "#vue", undefined),
+    new NavClass("Angular", "#angular", undefined),
     new NavClass("JQuery", "#jquery", undefined),
     new NavClass("Typescript", "#typescript", undefined),
     new NavClass("SASS", "#sass", undefined),
