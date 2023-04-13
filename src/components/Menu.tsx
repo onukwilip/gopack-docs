@@ -44,7 +44,7 @@ const menus = [
     new NavClass("SASS", "#sass", undefined),
     new NavClass("Ejs", "#ejs", undefined),
     new NavClass("Pug", "#pug", undefined),
-    new NavClass("Handlebars", "#hbs", undefined),
+    new NavClass("Handlebars", "#handlebars", undefined),
   ]),
 ];
 
