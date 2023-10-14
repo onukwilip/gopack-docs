@@ -174,7 +174,7 @@ const Docs = () => {
   return (
     <section className={`${css.docs}`}>
       <div className={css.left}>
-        <Menu height="89.2vh" />
+        <Menu height="100%" />
       </div>
       <div className={css.right}>
         {gettingReadme ? (
